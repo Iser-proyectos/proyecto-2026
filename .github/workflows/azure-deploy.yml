@@ -1,0 +1,30 @@
+name: Deploy to Azure Web App (AgroVision)
+
+on:
+  push:
+    branches:
+      - main  # Cambia esto a master si tu rama principal se llama así
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout GitHub Action
+      uses: actions/checkout@v4
+
+    - name: Set up Python version
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11' # Ajusta aquí tu versión si usas la 3.10 o 3.12
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+    - name: Deploy to Azure Web App
+      uses: azure/webapps-deploy@v3
+      with:
+        app-name: 'rg-agrovision' # Cambia esto si le pusiste otro nombre al nuevo App Service
+        publish-profile: ${{ secrets.AZURE_APP_SERVICE_PUBLISH_PROFILE }}
