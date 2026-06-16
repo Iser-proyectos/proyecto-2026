@@ -1,0 +1,12 @@
+/media
+.env    
+
+/.agents
+.agents
+skills-lock.json
+.anthropic
+
+__pycache__/
+*.pyc
+.vscode/
+db.sqlite3
